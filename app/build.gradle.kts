@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
     namespace = "com.waiyanphyo.astrofriday"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.waiyanphyo.astrofriday"
@@ -15,6 +17,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "WEATHER_API_KEY", "\"${properties["WEATHER_API_KEY"]}\"")
     }
 
     buildTypes {
@@ -34,6 +38,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
@@ -48,6 +53,20 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Hilt
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.logging.interceptor)
+
+    // Sandwich
+    implementation(libs.sandwich)
+    implementation(libs.sandwich.retrofit)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
