@@ -9,5 +9,5 @@ data class Location(
     val longitude: Double
 ) {
     val fullName: String get() = "$name, $region, $country"
-    fun formattedLocation(): String = "$latitude, $longitude"
+    fun formattedLocation(): String = "Latitude: $latitude, Longitude: $longitude"
 }

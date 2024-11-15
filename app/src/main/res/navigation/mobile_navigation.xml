@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.waiyanphyo.astrofriday.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_search"
+        android:name="com.waiyanphyo.astrofriday.ui.search.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

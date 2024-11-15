@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 object RepositoryModule {
 
     @Provides
-    fun provideSearchRepository(apiService: WeatherApiService, ioDispatcher: CoroutineDispatcher): SearchRepository {
+    fun provideSearchRepository(apiService: WeatherApiService, @IoDispatcher ioDispatcher: CoroutineDispatcher): SearchRepository {
         return SearchRepositoryImpl(apiService, ioDispatcher)
     }
 

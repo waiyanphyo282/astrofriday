@@ -7,6 +7,27 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DispatcherModule {
+
+    @Singleton
+    @Provides
+    @IoDispatcher
+    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Singleton
+    @Provides
+    @MainDispatcher
+    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
+
+    @Singleton
+    @Provides
+    @DefaultDispatcher
+    fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+}
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
@@ -19,20 +40,3 @@ annotation class MainDispatcher
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class DefaultDispatcher
-
-@Module
-@InstallIn(SingletonComponent::class)
-object DispatcherModule {
-
-    @Provides
-    @IoDispatcher
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-    @Provides
-    @MainDispatcher
-    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
-    @Provides
-    @DefaultDispatcher
-    fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
-}

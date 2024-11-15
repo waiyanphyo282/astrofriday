@@ -23,8 +23,8 @@ class SearchViewModel @Inject constructor(
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _locations = MutableStateFlow<Result<List<Location>, DomainError>>(Result.Loading)
-    val locations: StateFlow<Result<List<Location>, DomainError>> get() = _locations
+    private val _locations = MutableStateFlow<Result<List<Location>, DomainError>?>(null)
+    val locations: StateFlow<Result<List<Location>, DomainError>?> get() = _locations
 
     fun searchWeather(query: String) {
         viewModelScope.launch(ioDispatcher) {
