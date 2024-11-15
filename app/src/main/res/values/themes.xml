@@ -20,6 +20,8 @@
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerSizeTopLeft">10dp</item>
         <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
     </style>
 
     <style name="ShapeAppearance.AstroFriday.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">

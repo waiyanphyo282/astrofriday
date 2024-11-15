@@ -2,6 +2,7 @@ package com.waiyanphyo.astrofriday.ui.sport
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.waiyanphyo.astrofriday.R
 import com.waiyanphyo.astrofriday.databinding.FragmentSearchBinding
 import com.waiyanphyo.astrofriday.databinding.FragmentSportBinding
@@ -89,52 +92,25 @@ class SportFragment : Fragment(R.layout.fragment_sport) {
         contentLayout.removeAllViews()
         if (sportsData.isEmpty()) {
             val noDataTextView = TextView(requireContext()).apply {
-                textAlignment = View.TEXT_ALIGNMENT_CENTER
-                gravity = View.TEXT_ALIGNMENT_CENTER
+                layoutParams = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, 16, 0, 0)
+                    addRule(RelativeLayout.CENTER_IN_PARENT) // Center the TextView within the parent
+                }
             }
             noDataTextView.text = getString(R.string.no_relevant_data)
             contentLayout.addView(noDataTextView)
         } else {
-            val tableLayout = TableLayout(requireContext())
-            populateTable(tableLayout, sportsData)
-            contentLayout.addView(tableLayout)
-        }
-    }
-
-    private fun populateTable(tableLayout: TableLayout, sportsData: List<Sport>) {
-        addHeaderRow(tableLayout)
-        sportsData.forEach { sport ->
-            val tableRow = createTableRow(
-                listOf(
-                    sport.stadium,
-                    sport.country,
-                    sport.tournament,
-                    sport.date,
-                    sport.match
-                )
-            )
-            tableLayout.addView(tableRow)
-        }
-    }
-
-    private fun addHeaderRow(tableLayout: TableLayout) {
-        val headerRow = createTableRow(
-            listOf("Stadium", "Country", "Tournament", "Date", "Match")
-        )
-        tableLayout.addView(headerRow)
-    }
-
-    private fun createTableRow(values: List<String>): TableRow {
-        return TableRow(requireContext()).apply {
-            values.forEach { value ->
-                addView(
-                    TextView(requireContext()).apply {
-                        text = value
-                        textSize = 14f
-                        setPadding(8, 8, 8, 8)
-                    }
-                )
+            val recyclerView = RecyclerView(requireContext()).apply {
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                isNestedScrollingEnabled = false
             }
+            val sportAdapter = SportAdapter()
+            recyclerView.adapter = sportAdapter
+            sportAdapter.submitList(sportsData)
+            contentLayout.addView(recyclerView)
         }
     }
 }
