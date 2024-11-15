@@ -4,4 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="search">Search</string>
+    <string name="no_relevant_data">There is no relevant data</string>
+    <string name="title_sport">Sport</string>
+    <string name="stadium_country">Stadium: %s | %s</string>
 </resources>
