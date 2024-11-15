@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    tools:context=".ui.search.SearchFragment">
+
+    <EditText
+        android:id="@+id/et_search"
+        android:padding="10dp"
+        android:inputType="text"
+        android:hint="Search Location"
+        android:imeOptions="actionSearch"
+        android:background="@drawable/input_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_marginTop="10dp"
+        android:text="Search"
+        android:textAllCaps="false"
+        android:layout_below="@id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_marginTop="10dp"
+        android:text="Error"
+        android:visibility="gone"
+        android:textColor="@color/colorError"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_location"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        android:layout_below="@id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
