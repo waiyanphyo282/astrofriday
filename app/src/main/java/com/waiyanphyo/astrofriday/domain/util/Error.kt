@@ -1,3 +1,3 @@
-package com.plcoding.cryptotracker.core.domain.util
+package com.waiyanphyo.astrofriday.domain.util
 
 interface Error

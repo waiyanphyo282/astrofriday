@@ -10,12 +10,16 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.waiyanphyo.astrofriday.R
 import com.waiyanphyo.astrofriday.databinding.FragmentSearchBinding
 import com.waiyanphyo.astrofriday.domain.util.Result
+import com.waiyanphyo.astrofriday.domain.util.asEmptyDataResult
+import com.waiyanphyo.astrofriday.domain.util.onError
+import com.waiyanphyo.astrofriday.domain.util.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -47,30 +51,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.locations.collect { result ->
-                    when (result) {
-                        is Result.Error -> {
-                            // show Error Message
-                            binding.progressBar.visibility = View.GONE
-                            binding.tvError.visibility = View.VISIBLE
-                            binding.tvError.text = result.error.message
+                viewModel.state.collect { result ->
+                    if (result.isLoading) {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.tvError.visibility = View.GONE
+                        binding.rvLocation.visibility = View.GONE
+                    }
+                    if (result.locations != null) {
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvError.visibility = View.GONE
+                        if (result.locations.isEmpty()) {
+                            binding.rvLocation.visibility = View.GONE
+                            Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show()
+                        } else {
+                            binding.rvLocation.visibility = View.VISIBLE
                         }
-                        Result.Loading -> {
-                            // Show Loading indicator
-                            binding.tvError.visibility = View.GONE
-                            binding.progressBar.visibility = View.VISIBLE
-                        }
-                        is Result.Success -> {
-                            // Show Data
-                            binding.tvError.visibility = View.GONE
-                            binding.progressBar.visibility = View.GONE
-                            searchAdapter.submitList(result.data)
-                        }
-
-                        null -> {
-                            binding.tvError.visibility = View.GONE
-                            binding.progressBar.visibility = View.GONE
-                        }
+                        searchAdapter.submitList(result.locations)
+                    }
+                    if (result.errorMessage.isNotEmpty()) {
+                        binding.rvLocation.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvError.visibility = View.VISIBLE
+                        binding.tvError.text = result.errorMessage
                     }
                 }
             }
@@ -79,7 +81,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun searchLocation() {
         val query = binding.etSearch.text.toString()
-        viewModel.searchWeather(query)
+        if (query.isNotEmpty()) {
+            binding.etSearch.error = null
+            viewModel.searchWeather(query)
+        } else {
+            binding.etSearch.error = "Please enter a location"
+        }
     }
 
 }

@@ -13,3 +13,7 @@ fun ApiLocation.toDomainModel(): Location {
         longitude = lon
     )
 }
+
+fun List<ApiLocation>.toDomainModel(): List<Location> {
+    return map { it.toDomainModel() }
+}

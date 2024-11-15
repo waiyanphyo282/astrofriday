@@ -1,9 +1,9 @@
 package com.waiyanphyo.astrofriday.domain.util
 
+
 typealias DomainError = Error
 
 sealed interface Result<out D, out E: Error> {
-    object Loading: Result<Nothing, Nothing>
     data class Success<out D>(val data: D): Result<D, Nothing>
     data class Error<out E: DomainError>(val error: E): Result<Nothing, E>
 }
@@ -12,7 +12,6 @@ inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     return when(this) {
         is Result.Error -> Result.Error(error)
         is Result.Success -> Result.Success(map(data))
-        Result.Loading -> Result.Loading
     }
 }
 
@@ -27,8 +26,6 @@ inline fun <T, E: Error> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T, 
             action(data)
             this
         }
-
-        Result.Loading -> this
     }
 }
 inline fun <T, E: Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E> {
@@ -38,7 +35,6 @@ inline fun <T, E: Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E>
             this
         }
         is Result.Success -> this
-        Result.Loading -> this
     }
 }
 

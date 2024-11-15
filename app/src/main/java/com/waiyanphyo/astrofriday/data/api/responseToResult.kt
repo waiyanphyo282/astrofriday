@@ -1,32 +1,39 @@
 package com.waiyanphyo.astrofriday.data.api
 
-import com.waiyanphyo.astrofriday.domain.util.DomainError
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import retrofit2.Response
+import android.util.Log
+import com.squareup.moshi.JsonDataException
+import com.waiyanphyo.astrofriday.domain.util.NetworkError
 import com.waiyanphyo.astrofriday.domain.util.Result
+import retrofit2.Response
 
-fun <T> responseToResult(response: Response<T>): Flow<Result<T, DomainError>> = flow {
-    // Emit the Loading state before starting the API call
-    emit(Result.Loading)
-
-    try {
-        // Check if the response is successful
-        if (response.isSuccessful) {
-            // If successful, emit Success
-            val body = response.body()
-            if (body != null) {
-                emit(Result.Success(body))
-            } else {
-                // If the body is null, emit an Error state
-                emit(Result.Error(DomainError("Response body is null")))
+fun <T> responseToResult(response: Response<T>): Result<T, NetworkError> {
+    Log.d("TAG", "responseToResult: ${response.code()}")
+    return when {
+        response.isSuccessful -> {
+            // Handle the successful response
+            try {
+                response.body()?.let {body ->
+                    Result.Success(body)
+                } ?: Result.Error(NetworkError.UNKNOWN)
+            } catch (e: JsonDataException) {
+                Result.Error(NetworkError.SERIALIZATION)
             }
-        } else {
-            // If the response is not successful, emit an Error state with error message
-            emit(Result.Error(DomainError("Error: ${response.code()} ${response.message()}")))
         }
-    } catch (e: Exception) {
-        // If an exception occurs, emit an Error state
-        emit(Result.Error(DomainError(e.message ?: "Unknown error")))
+        response.code() == 408 -> {
+            // Handle 404 Not Found error
+            Result.Error(NetworkError.REQUEST_TIMEOUT)
+        }
+        response.code() == 429 -> {
+            // Handle 401 Unauthorized error
+            Result.Error(NetworkError.TOO_MANY_REQUESTS)
+        }
+        response.code() in 500..599 -> {
+            // Handle 5xx Server error
+            Result.Error(NetworkError.SERVER_ERROR)
+        }
+        else -> {
+            // Handle other HTTP errors
+            Result.Error(NetworkError.UNKNOWN)
+        }
     }
 }
