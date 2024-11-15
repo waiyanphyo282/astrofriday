@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.waiyanphyo.astrofriday.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
         android:id="@+id/navigation_search"
         android:name="com.waiyanphyo.astrofriday.ui.search.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/navigation_sport"
+        android:name="com.waiyanphyo.astrofriday.ui.sport.SportFragment"
+        android:label="Sport"
+        tools:layout="@layout/fragment_sport" />
 </navigation>

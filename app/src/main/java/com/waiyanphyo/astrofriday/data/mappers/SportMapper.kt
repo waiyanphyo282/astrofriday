@@ -6,7 +6,7 @@ import com.waiyanphyo.astrofriday.domain.model.AllSports
 import com.waiyanphyo.astrofriday.domain.model.Sport
 
 fun ApiSport.toDomainModel(): Sport {
-    val date = start.split(" ")[0].replace("-", "/") // Convert "2024-11-23" to "2024/11/23"
+    val date = start.split(" ")[0].replace("-", "/")
     return Sport(
         stadium = stadium,
         country = country,
