@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary Color -->
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryVariant">#1976D2</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryVariant">#008BA3</color>
     <color name="colorOnPrimary">#000000</color> <!-- Text/icons on primary color -->
 
     <!-- Secondary Color -->
