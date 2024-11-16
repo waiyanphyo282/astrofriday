@@ -36,13 +36,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         binding.apply {
             rvLocation.adapter = searchAdapter
-            etSearch.setOnEditorActionListener { v, actionId, event ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    searchLocation()
-                    true
-                } else {
-                    false
-                }
+            etSearch.setOnEditorActionListener {_, _, _ ->
+                searchLocation()
+                true
             }
             btnSearch.setOnClickListener {
                 searchLocation()
