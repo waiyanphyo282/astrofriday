@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <ImageView
@@ -30,12 +32,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:paddingStart="16dp"
         android:padding="10dp"
         android:background="@drawable/input_background"
         android:inputType="textEmailAddress"
         android:layout_below="@id/tv_title"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        tools:ignore="RtlSymmetry" />
 
     <!-- Password EditText -->
     <EditText
@@ -44,16 +48,20 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:background="@drawable/input_background"
+        android:paddingStart="16dp"
         android:padding="10dp"
         android:inputType="textPassword"
         android:layout_below="@id/username"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        tools:ignore="RtlSymmetry" />
 
     <!-- Login Button -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:padding="10dp"
         android:text="Login"
         android:layout_below="@id/password"/>
 
@@ -87,12 +95,29 @@
         android:layout_height="0.5dp" />
 
     <!-- Google Sign-in Button -->
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googleSignInButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btn_google_sign_in"
         android:layout_below="@id/tv_or"
-        android:layout_marginTop="36dp"/>
+        android:layout_marginTop="36dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardUseCompatPadding="true"
+        android:foreground="?selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/googleSignInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign In with Google"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawableStart="@drawable/google_logo"
+            android:textAlignment="center"/>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Error Text -->
     <TextView
