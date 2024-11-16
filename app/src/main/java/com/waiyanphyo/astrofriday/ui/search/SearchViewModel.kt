@@ -5,17 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.waiyanphyo.astrofriday.data.repository.SearchRepository
 import com.waiyanphyo.astrofriday.di.IoDispatcher
 import com.waiyanphyo.astrofriday.di.MainDispatcher
-import com.waiyanphyo.astrofriday.domain.model.Location
-import com.waiyanphyo.astrofriday.domain.util.DomainError
-import com.waiyanphyo.astrofriday.domain.util.Result
 import com.waiyanphyo.astrofriday.domain.util.onError
 import com.waiyanphyo.astrofriday.domain.util.onSuccess
 import com.waiyanphyo.astrofriday.domain.util.toErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

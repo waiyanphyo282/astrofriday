@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.waiyanphyo.astrofriday.databinding.ItemLocationBinding
-import com.waiyanphyo.astrofriday.domain.model.Location
+import com.waiyanphyo.astrofriday.domain.model.SearchLocation
 
-class SearchAdapter: ListAdapter<Location, SearchAdapter.SearchViewHolder>(DIFF) {
+class SearchAdapter: ListAdapter<SearchLocation, SearchAdapter.SearchViewHolder>(DIFF) {
 
     companion object {
-        val DIFF = object: DiffUtil.ItemCallback<Location>() {
-            override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
+        val DIFF = object: DiffUtil.ItemCallback<SearchLocation>() {
+            override fun areItemsTheSame(oldItem: SearchLocation, newItem: SearchLocation): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
+            override fun areContentsTheSame(oldItem: SearchLocation, newItem: SearchLocation): Boolean {
                 return oldItem == newItem
             }
 
@@ -24,7 +24,7 @@ class SearchAdapter: ListAdapter<Location, SearchAdapter.SearchViewHolder>(DIFF)
     }
 
     inner class SearchViewHolder(val binding: ItemLocationBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(location: Location) {
+        fun bind(location: SearchLocation) {
             binding.tvName.text = location.fullName
             binding.tvLocationData.text = location.formattedLocation()
         }

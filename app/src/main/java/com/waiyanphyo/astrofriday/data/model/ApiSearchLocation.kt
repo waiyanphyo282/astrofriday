@@ -1,6 +1,6 @@
 package com.waiyanphyo.astrofriday.data.model
 
-data class ApiLocation(
+data class ApiSearchLocation(
     val country: String,
     val id: Int,
     val lat: Double,

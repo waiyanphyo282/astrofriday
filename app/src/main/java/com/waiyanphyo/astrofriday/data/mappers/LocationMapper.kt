@@ -1,10 +1,10 @@
 package com.waiyanphyo.astrofriday.data.mappers
 
-import com.waiyanphyo.astrofriday.data.model.ApiLocation
-import com.waiyanphyo.astrofriday.domain.model.Location
+import com.waiyanphyo.astrofriday.data.model.ApiSearchLocation
+import com.waiyanphyo.astrofriday.domain.model.SearchLocation
 
-fun ApiLocation.toDomainModel(): Location {
-    return Location(
+fun ApiSearchLocation.toDomainModel(): SearchLocation {
+    return SearchLocation(
         id = id,
         name = name,
         region = region,
@@ -14,6 +14,6 @@ fun ApiLocation.toDomainModel(): Location {
     )
 }
 
-fun List<ApiLocation>.toDomainModel(): List<Location> {
+fun List<ApiSearchLocation>.toDomainModel(): List<SearchLocation> {
     return map { it.toDomainModel() }
 }

@@ -1,6 +1,8 @@
 package com.waiyanphyo.astrofriday.di
 
 import com.waiyanphyo.astrofriday.data.api.WeatherApiService
+import com.waiyanphyo.astrofriday.data.repository.AstronomyRepository
+import com.waiyanphyo.astrofriday.data.repository.AstronomyRepositoryImpl
 import com.waiyanphyo.astrofriday.data.repository.SearchRepository
 import com.waiyanphyo.astrofriday.data.repository.SearchRepositoryImpl
 import com.waiyanphyo.astrofriday.data.repository.SportRepository
@@ -23,6 +25,11 @@ object RepositoryModule {
     @Provides
     fun provideSportRepository(apiService: WeatherApiService, @IoDispatcher ioDispatcher: CoroutineDispatcher): SportRepository {
         return SportRepositoryImpl(apiService, ioDispatcher)
+    }
+
+    @Provides
+    fun provideAstronomyRepository(apiService: WeatherApiService, @IoDispatcher ioDispatcher: CoroutineDispatcher): AstronomyRepository {
+        return AstronomyRepositoryImpl(apiService, ioDispatcher)
     }
 
 }
