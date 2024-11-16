@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_astronomy">
+    app:startDestination="@+id/loginFragment">
 
     <fragment
         android:id="@+id/navigation_astronomy"
@@ -22,4 +22,13 @@
         android:name="com.waiyanphyo.astrofriday.ui.sport.SportFragment"
         android:label="Sport"
         tools:layout="@layout/fragment_sport" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.waiyanphyo.astrofriday.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_astronomy"
+            app:destination="@id/navigation_astronomy" />
+    </fragment>
 </navigation>
