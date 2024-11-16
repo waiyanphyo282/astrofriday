@@ -9,7 +9,9 @@
     <string name="time_difference_placeholder">%s hours %s minutes</string>
     <string name="sunrise_to_moonrise_placeholder">Sunrise to Moonrise: %s</string>
     <string name="sunset_to_moonset_placeholder">Sunset to Moonset: %s</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">…</string>
     <string name="title_astronomy">Astronomy</string>
     <string name="web_client_id">400326425142-t730l5icntro255q70p55f069qs8f5qu.apps.googleusercontent.com</string>
+    <string name="country_placeholder">Country : %s</string>
+    <string name="region_placeholder">Region : %s</string>
 </resources>

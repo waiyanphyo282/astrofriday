@@ -1,26 +1,20 @@
 package com.waiyanphyo.astrofriday.ui.sport
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.view.Gravity
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.waiyanphyo.astrofriday.R
-import com.waiyanphyo.astrofriday.databinding.FragmentSearchBinding
 import com.waiyanphyo.astrofriday.databinding.FragmentSportBinding
-import com.waiyanphyo.astrofriday.domain.model.AllSports
 import com.waiyanphyo.astrofriday.domain.model.Sport
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -107,6 +101,11 @@ class SportFragment : Fragment(R.layout.fragment_sport) {
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 isNestedScrollingEnabled = false
             }
+            val layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            recyclerView.layoutParams = layoutParams
             val sportAdapter = SportAdapter()
             recyclerView.adapter = sportAdapter
             sportAdapter.submitList(sportsData)

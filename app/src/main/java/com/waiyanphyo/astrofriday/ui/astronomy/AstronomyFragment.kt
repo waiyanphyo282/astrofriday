@@ -72,6 +72,8 @@ class AstronomyFragment : Fragment() {
                 launch {
                     viewModel.state.collect { state ->
                         if (state.isLoading) {
+                            binding.tvRegion.text = getString(R.string.loading)
+                            binding.tvCountry.text = getString(R.string.loading)
                             binding.tvSunrise.text = getString(R.string.loading)
                             binding.tvSunset.text = getString(R.string.loading)
                             binding.tvMoonrise.text = getString(R.string.loading)
@@ -82,11 +84,8 @@ class AstronomyFragment : Fragment() {
                             if (state.astronomy != null) {
                                 binding.apply {
                                     tvLocation.text = state.astronomy.locationName
-                                    tvRegionCountry.text = buildString {
-                                        append(state.astronomy.region)
-                                        append(", ")
-                                        append(state.astronomy.country)
-                                    }
+                                    tvRegion.text = resources.getString(R.string.region_placeholder, state.astronomy.region)
+                                    tvCountry.text = resources.getString(R.string.country_placeholder, state.astronomy.country)
                                     tvDistance.text = resources.getString(R.string.distance_placeholder, state.astronomy.distance.toHumanReadableDistance())
                                     tvLocalTime.text = resources.getString(R.string.local_time_placeholder, state.astronomy.localTime)
                                     tvSunrise.text = state.astronomy.sunrise

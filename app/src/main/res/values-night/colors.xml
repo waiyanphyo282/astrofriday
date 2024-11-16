@@ -5,6 +5,8 @@
     <color name="colorPrimaryVariant">#008BA3</color>
     <color name="colorOnPrimary">#000000</color> <!-- Text/icons on primary color -->
 
+    <color name="statusBarColor">#121212</color>
+
     <!-- Secondary Color -->
     <color name="colorSecondary">#FF4081</color> <!-- Secondary accent color (pink) -->
     <color name="colorOnSecondary">#000000</color> <!-- Text/icons on secondary color -->
