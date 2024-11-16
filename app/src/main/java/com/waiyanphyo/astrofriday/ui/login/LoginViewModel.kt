@@ -12,7 +12,7 @@ typealias Validator = (String) -> Boolean
 class LoginViewModel @Inject constructor() : ViewModel() {
 
     private val emailValidator: Validator = { it.contains("@") && it.contains(".") }
-    private val passwordValidator: Validator = { it.length > 8 }
+    private val passwordValidator: Validator = { it.length > 7 }
 
     private val _emailError = MutableStateFlow<String?>(null)
     val emailError: StateFlow<String?> get() = _emailError
