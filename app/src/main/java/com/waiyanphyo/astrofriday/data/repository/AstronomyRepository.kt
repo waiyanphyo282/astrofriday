@@ -6,5 +6,5 @@ import com.waiyanphyo.astrofriday.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
 interface AstronomyRepository {
-    fun getAstronomy(query: String): Flow<Result<Astronomy, Error>>
+    fun getAstronomy(query: String, date: String): Flow<Result<Astronomy, Error>>
 }

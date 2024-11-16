@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_astronomy"
+        android:icon="@drawable/planet"
+        android:title="@string/title_astronomy" />
 
     <item
         android:id="@+id/navigation_sport"

@@ -17,8 +17,8 @@ class AstronomyRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): AstronomyRepository {
 
-    override fun getAstronomy(query: String) = flow {
-        val response = safeCall { apiService.getAstronomy(query) }
+    override fun getAstronomy(query: String, date: String) = flow {
+        val response = safeCall { apiService.getAstronomy(query, date) }
         emit(response.map { it.toDomainModel() })
     }.flowOn(ioDispatcher)
 }

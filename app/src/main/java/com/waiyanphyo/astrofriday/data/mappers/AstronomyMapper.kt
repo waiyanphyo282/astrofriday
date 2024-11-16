@@ -16,15 +16,27 @@ private const val LOCAL_TIME_FORMAT = "yyyy-MM-dd HH:mm"
 private const val TARGET_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 fun AstronomyResponse.toDomainModel(): Astronomy {
-    val sunriseTime = parseTimeOfDay(astronomy.astro.sunrise)
-    val sunsetTime = parseTimeOfDay(astronomy.astro.sunset)
-    val moonriseTime = parseTimeOfDay(astronomy.astro.moonrise)
-    val moonsetTime = parseTimeOfDay(astronomy.astro.moonset)
-
-    val formattedLocalTime = formatLocalTime(location.localtime)
-
     val localDateTime = LocalDateTime.parse(location.localtime, DateTimeFormatter.ofPattern(LOCAL_TIME_FORMAT))
     val localDate = localDateTime.toLocalDate()
+    val zoneOffset = ZoneOffset.UTC
+    val sunsetDateTime = LocalDateTime.of(localDate, parseTimeOfDay(astronomy.astro.sunset)).atOffset(zoneOffset).toZonedDateTime()
+    val moonsetDateTime = if (astronomy.astro.moonset == "No moonset") {
+        null
+    } else {
+        LocalDateTime.of(localDate, parseTimeOfDay(astronomy.astro.moonset)).atOffset(zoneOffset).toZonedDateTime()
+    }
+
+    // If moonset time is earlier than sunset, consider it as happening the next day
+    val correctedMoonsetDateTime = if (moonsetDateTime?.isBefore(sunsetDateTime) == true) {
+        moonsetDateTime.plusDays(1)  // Adjust to the next day
+    } else {
+        moonsetDateTime
+    }
+
+    val sunriseTime = parseTimeOfDay(astronomy.astro.sunrise)
+    val moonriseTime = parseTimeOfDay(astronomy.astro.moonrise)
+
+    val formattedLocalTime = formatLocalTime(location.localtime)
 
     return Astronomy(
         locationName = location.name,
@@ -36,12 +48,12 @@ fun AstronomyResponse.toDomainModel(): Astronomy {
             location.lon,
             13.7461252,100.530772,
         ),
-        sunrise = LocalDateTime.of(localDate, sunriseTime),
-        sunset = LocalDateTime.of(localDate, sunsetTime),
-        moonrise = LocalDateTime.of(localDate, moonriseTime),
-        moonset = LocalDateTime.of(localDate, moonsetTime),
-        sunriseToMoonrise = Duration.between(sunriseTime, moonriseTime),
-        sunsetToMoonset = Duration.between(sunsetTime, moonsetTime),
+        sunrise = astronomy.astro.sunrise,
+        sunset = astronomy.astro.sunset,
+        moonrise = astronomy.astro.moonrise,
+        moonset = astronomy.astro.moonset,
+        sunriseToMoonrise = if (sunriseTime != null && moonriseTime != null) Duration.between(sunriseTime, moonriseTime) else Duration.ZERO,
+        sunsetToMoonset = if (sunsetDateTime != null && moonsetDateTime != null) Duration.between(sunsetDateTime, correctedMoonsetDateTime) else Duration.ZERO,
     )
 }
 
@@ -65,7 +77,10 @@ fun getDistanceInMeters(lat1: Double, lon1: Double, lat2: Double, lon2: Double):
 }
 
 
-private fun parseTimeOfDay(timeString: String): LocalTime {
+private fun parseTimeOfDay(timeString: String): LocalTime? {
+    if (timeString.isNullOrEmpty() || timeString == "No moonset" || timeString == "No sunrise" || timeString == "No sunset") {
+        return null  // Return null if the value is empty or represents no data
+    }
     val (timePart, amPmPart) = timeString.split(" ")
     val (hours, minutes) = timePart.split(":")
     val hour = hours.toInt()

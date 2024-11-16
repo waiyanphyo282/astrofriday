@@ -9,10 +9,10 @@ data class Astronomy(
     val country: String,
     val distance: Double,
     val localTime: String,
-    val sunrise: LocalDateTime,
-    val sunset: LocalDateTime,
-    val moonrise: LocalDateTime,
-    val moonset: LocalDateTime,
+    val sunrise: String,
+    val sunset: String,
+    val moonrise: String,
+    val moonset: String,
     val sunriseToMoonrise: Duration,
     val sunsetToMoonset: Duration
 )

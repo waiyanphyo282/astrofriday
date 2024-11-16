@@ -16,5 +16,5 @@ interface WeatherApiService {
     suspend fun getSports(@Query("q") query: String): Response<ApiSportList>
 
     @GET("astronomy.json")
-    suspend fun getAstronomy(@Query("q") query: String): Response<AstronomyResponse>
+    suspend fun getAstronomy(@Query("q") query: String, @Query("dt") date: String): Response<AstronomyResponse>
 }
