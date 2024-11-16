@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.waiyanphyo.astrofriday" />
+                  <option name="mobileSdkAppId" value="1:400326425142:android:7fe2a659281b4101417697" />
+                  <option name="projectId" value="astro-friday" />
+                  <option name="projectNumber" value="400326425142" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
