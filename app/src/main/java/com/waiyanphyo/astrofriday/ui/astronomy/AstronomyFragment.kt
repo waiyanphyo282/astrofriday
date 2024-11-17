@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -95,6 +96,15 @@ class AstronomyFragment : Fragment() {
                                     tvSunriseToMoonrise.text = resources.getString(R.string.sunrise_to_moonrise_placeholder, state.astronomy.sunriseToMoonrise.toFormattedString())
                                     tvSunsetToMoonset.text = resources.getString(R.string.sunset_to_moonset_placeholder, state.astronomy.sunsetToMoonset.toFormattedString())
                                 }
+                            }
+                        }
+                    }
+                }
+                launch {
+                    viewModel.events.collect {
+                        when (it) {
+                            is AstronomyEvent.Error -> {
+                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

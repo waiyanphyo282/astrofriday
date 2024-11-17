@@ -15,10 +15,6 @@ inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     }
 }
 
-fun <T, E: Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
-    return map {  }
-}
-
 inline fun <T, E: Error> Result<T, E>.onSuccess(action: (T) -> Unit): Result<T, E> {
     return when(this) {
         is Result.Error -> this

@@ -8,5 +8,4 @@ import javax.annotation.concurrent.Immutable
 data class SearchUiState(
     val isLoading: Boolean = false,
     val locations: List<SearchLocation>? = null,
-    val errorMessage: String = ""
 )
