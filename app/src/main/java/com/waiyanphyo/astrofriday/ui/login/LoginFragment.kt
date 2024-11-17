@@ -1,11 +1,13 @@
 package com.waiyanphyo.astrofriday.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -169,6 +171,10 @@ class LoginFragment : Fragment() {
     private fun navigateToHome() {
         Toast.makeText(requireContext(), "Login SuccessFul", Toast.LENGTH_SHORT)
             .show()
+        val sharedPreferences = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit {
+            putBoolean("is_logged_in", true)
+        }
         findNavController().navigate(
             R.id.navigation_astronomy,
             null,
