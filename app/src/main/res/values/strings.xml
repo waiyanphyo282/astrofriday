@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Astro Friday</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="search">Search</string>
+    <string name="no_relevant_data">There is no relevant data</string>
+    <string name="title_sport">Sport</string>
+    <string name="stadium_country">Stadium: %s | %s</string>
+    <string name="distance_placeholder">Distance: %s meters</string>
+    <string name="local_time_placeholder">Local Time: %s</string>
+    <string name="time_difference_placeholder">%s hours %s minutes</string>
+    <string name="sunrise_to_moonrise_placeholder">Sunrise to Moonrise: %s</string>
+    <string name="sunset_to_moonset_placeholder">Sunset to Moonset: %s</string>
+    <string name="loading">…</string>
+    <string name="title_astronomy">Astronomy</string>
+    <string name="web_client_id">400326425142-t730l5icntro255q70p55f069qs8f5qu.apps.googleusercontent.com</string>
+    <string name="country_placeholder">Country : %s</string>
+    <string name="region_placeholder">Region : %s</string>
 </resources>

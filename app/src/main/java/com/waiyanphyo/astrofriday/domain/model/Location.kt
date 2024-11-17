@@ -1,0 +1,1 @@
+package com.waiyanphyo.astrofriday.domain.model

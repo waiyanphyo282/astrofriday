@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "400326425142",
+    "project_id": "astro-friday",
+    "storage_bucket": "astro-friday.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400326425142:android:7fe2a659281b4101417697",
+        "android_client_info": {
+          "package_name": "com.waiyanphyo.astrofriday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400326425142-t730l5icntro255q70p55f069qs8f5qu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-iCfnYwJmmvq0HpA_7J3rGFKv8RzZtVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400326425142-t730l5icntro255q70p55f069qs8f5qu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

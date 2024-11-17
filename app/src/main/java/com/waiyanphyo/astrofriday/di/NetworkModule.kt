@@ -1,5 +1,6 @@
 package com.waiyanphyo.astrofriday.di
 
+import com.squareup.moshi.Moshi
 import com.waiyanphyo.astrofriday.BuildConfig
 import com.waiyanphyo.astrofriday.data.api.WeatherApiService
 import dagger.Module
@@ -10,6 +11,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -58,10 +60,14 @@ object NetworkModule {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         }
 
+        val moshi = Moshi.Builder()
+            .build()
+
         // Create the Retrofit instance
         return Retrofit.Builder()
             .baseUrl("https://api.weatherapi.com/v1/")
             .client(clientBuilder.build())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 

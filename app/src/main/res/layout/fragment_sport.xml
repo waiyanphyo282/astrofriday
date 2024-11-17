@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fillViewport="true"
+    tools:context=".ui.sport.SportFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:padding="10dp"
+            android:layout_toStartOf="@id/iv_search"
+            android:layout_marginEnd="10dp"
+            android:text="London"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/input_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:padding="10dp"
+            android:foreground="?selectableItemBackground"
+            android:src="@drawable/baseline_search_24"
+            android:background="@drawable/input_background"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/results_layout"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/iv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_football"
+                android:text="FootBall"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/football_content"
+                android:layout_below="@id/tv_football"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/football_divider"
+                android:layout_below="@id/football_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" />
+
+            <TextView
+                android:id="@+id/tv_cricket"
+                android:text="Cricket"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/football_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/cricket_content"
+                android:layout_below="@id/tv_cricket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/cricket_divider"
+                android:layout_below="@id/cricket_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" />
+
+            <TextView
+                android:id="@+id/tv_golf"
+                android:text="Golf"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/cricket_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/golf_content"
+                android:layout_below="@id/tv_golf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/golf_divider"
+                android:layout_below="@id/golf_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorDivider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>
