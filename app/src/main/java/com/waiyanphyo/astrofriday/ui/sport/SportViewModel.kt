@@ -12,7 +12,9 @@ import com.waiyanphyo.astrofriday.domain.util.toErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -31,8 +33,8 @@ class SportViewModel @Inject constructor(
 
     private val _query = MutableLiveData("London")
 
-    private val _events = Channel<SportEvent>()
-    val events = _events.receiveAsFlow()
+    private val _events = MutableSharedFlow<SportEvent>(replay = 0)
+    val events = _events.asSharedFlow()
 
     init {
         _query.observeForever {
@@ -42,6 +44,12 @@ class SportViewModel @Inject constructor(
 
     fun setQuery(query: String) {
         _query.value = query
+    }
+
+    private fun sendErrorEvent(event: SportEvent) {
+        viewModelScope.launch {
+            _events.emit(event)
+        }
     }
 
     private fun getSports() {
@@ -58,7 +66,7 @@ class SportViewModel @Inject constructor(
                             )
                         }.onError {
                             _state.value = _state.value.copy(isLoading = false)
-                            _events.send(SportEvent.Error(it.toErrorMessage()))
+                            sendErrorEvent(SportEvent.Error(it.toErrorMessage()))
                         }
                     }
                 }

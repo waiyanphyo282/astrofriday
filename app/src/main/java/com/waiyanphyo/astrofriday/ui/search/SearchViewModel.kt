@@ -10,7 +10,9 @@ import com.waiyanphyo.astrofriday.domain.util.onSuccess
 import com.waiyanphyo.astrofriday.domain.util.toErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +28,15 @@ class SearchViewModel @Inject constructor(
     private val _state = MutableStateFlow(SearchUiState())
     val state = _state.asStateFlow()
 
+    private val _events = MutableSharedFlow<SearchEvent>(replay = 0)
+    val events = _events.asSharedFlow()
+
+    private fun sendErrorEvent(event: SearchEvent) {
+        viewModelScope.launch {
+            _events.emit(event)
+        }
+    }
+
     fun searchWeather(query: String) {
         _state.value = _state.value.copy(isLoading = true)
         viewModelScope.launch(ioDispatcher) {
@@ -37,13 +48,15 @@ class SearchViewModel @Inject constructor(
                             _state.value = _state.value.copy(
                                 isLoading = false,
                                 locations = it,
-                                errorMessage = ""
                             )
+                            if (it.isEmpty()) {
+                                sendErrorEvent(SearchEvent.ErrorToast("No Results found"))
+                            }
                         }.onError {
                             _state.value = _state.value.copy(
                                 isLoading = false,
-                                errorMessage = it.toErrorMessage()
                             )
+                            sendErrorEvent(SearchEvent.ErrorTextView(it.toErrorMessage()))
                         }
                     }
                 }
